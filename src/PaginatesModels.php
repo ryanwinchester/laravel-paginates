@@ -11,7 +11,7 @@ trait PaginatesModels
      *
      * @var int
      */
-    protected $defaultCount = 100;
+    protected $defaultPerPage = 100;
 
     /**
      * The default column to order by.
@@ -38,7 +38,7 @@ trait PaginatesModels
     {
         $request = $request ?: app('request');
 
-        $count = $this->getCount($request);
+        $perPage = $this->getPerPage($request);
         $columns = $this->getColumns($request);
         $includes = $this->getIncludes($request);
         $orderBy = $this->getOrderBy($request);
@@ -46,7 +46,7 @@ trait PaginatesModels
         $items = ! empty($includes) ? $model::with(...$includes) : new $model;
 
         return $items->orderBy($orderBy['col'], $orderBy['dir'])
-            ->paginate($count, $columns)
+            ->paginate($perPage, $columns)
             ->appends($this->getAppends($request));
     }
 
@@ -56,9 +56,9 @@ trait PaginatesModels
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    private function getCount(Request $request)
+    private function getPerPage(Request $request)
     {
-        return (int) $request->input('count', $this->defaultCount);
+        return (int) $request->input('perPage', $this->defaultPerPage);
     }
 
     /**
@@ -69,7 +69,7 @@ trait PaginatesModels
      */
     private function getColumns(Request $request)
     {
-        return $request->has('columns') ? explode(',', $request->input('columns')) : ['*'];
+        return explode(',', $request->input('columns', '*'));
     }
 
     /**
@@ -112,7 +112,7 @@ trait PaginatesModels
     private function getAppends(Request $request)
     {
         return [
-            'count'   => $request->input('count'),
+            'perPage' => $request->input('perPage'),
             'columns' => $request->input('columns'),
             'include' => $request->input('include'),
             'orderBy' => $request->input('orderBy'),
