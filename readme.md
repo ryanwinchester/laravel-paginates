@@ -1,6 +1,6 @@
 # PaginatesModels
 
- [![Packagist](https://img.shields.io/packagist/vpre/ryanwinchester/paginates.svg?maxAge=2592000)]() 
+ [![Packagist](https://img.shields.io/packagist/vpre/ryanwinchester/paginates.svg?maxAge=2592000)]()
  [![Packagist](https://img.shields.io/packagist/l/ryanwinchester/paginates.svg?maxAge=2592000)]()
 
 This trait adds a super duper handy method that will give you behaviour from requests slightly similar to what something like `league/fractal` gives you without all the setup and needing to create transformers.
@@ -71,6 +71,4 @@ Then you can go to your route and add some of these optional parameters to page 
 
 # Please try it out and give feedback.
 
-Taylor thinks it's a good idea, so I mean what other reason do you need?
-[![](http://s.ryanwinchester.ca/2D1L030U080c/Screenshot%202016-10-04%2012.04.54.png)](https://github.com/laravel/framework/pull/15741)
-![](http://s.ryanwinchester.ca/1y2G3g2T2z2s/pretty-serious.jpg)
+[Taylor thinks it's a good idea](https://github.com/laravel/framework/pull/15741), so I mean what other reason do you need?
