@@ -1,0 +1,23 @@
+{
+    "name": "ryanwinchester/paginates",
+    "description": "Laravel controller trait for paginating models",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Ryan Winchester",
+            "email": "fungku@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "illuminate/http": "5.1.*|5.2.*|5.3.*"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "SevenShores\\Pagination\\": "src/"
+        }
+    }
+}
