@@ -1,6 +1,6 @@
 <?php
 
-namespace SevenShores\Pagination;
+namespace Sevenshores\Pagination;
 
 use Illuminate\Http\Request;
 

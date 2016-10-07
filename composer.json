@@ -1,5 +1,5 @@
 {
-    "name": "ryanwinchester/paginates",
+    "name": "sevenshores/paginates",
     "description": "Laravel controller trait for paginating models",
     "type": "library",
     "license": "Apache-2.0",

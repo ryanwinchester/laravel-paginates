@@ -1,7 +1,7 @@
 # PaginatesModels
 
- [![Packagist](https://img.shields.io/packagist/vpre/ryanwinchester/paginates.svg?maxAge=2592000)]()
- [![Packagist](https://img.shields.io/packagist/l/ryanwinchester/paginates.svg?maxAge=2592000)]()
+ [![Packagist](https://img.shields.io/packagist/vpre/sevenshores/paginates.svg?maxAge=2592000)]()
+ [![Packagist](https://img.shields.io/packagist/l/sevenshores/paginates.svg?maxAge=2592000)]()
 
 This trait adds a super duper handy method that will give you behaviour from requests slightly similar to what something like `league/fractal` gives you without all the setup and needing to create transformers.
 
@@ -12,7 +12,7 @@ Between this trait, and Eloquent Models' `$casts` and `$hidden` properties, star
 Composer:
 
 ```
-composer require "ryanwinchester/paginates:dev-master@dev"
+composer require "sevenshores/paginates:dev-master@dev"
 ```
 
 ### To use it:
