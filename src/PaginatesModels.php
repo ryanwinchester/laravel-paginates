@@ -40,7 +40,7 @@ trait PaginatesModels
 
         $params = $this->parseParams($params);
 
-        return $this->itemsInstance($model, $params['include'])
+        return $this->getBuilderInstance($model, $params['include'])
             ->where($params['filter'])
             ->orderBy($params['orderBy']['col'], $params['orderBy']['dir'])
             ->paginate($params['perPage'], $params['columns'])
@@ -71,17 +71,13 @@ trait PaginatesModels
      * @param  array $includes
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      */
-    private function itemsInstance($model, $includes)
+    private function getBuilderInstance($model, $includes)
     {
         if (! empty($includes)) {
             return $model::with(...$includes);
         }
 
-        if (is_string($model)) {
-            return new $model;
-        }
-
-        return $model;
+        return is_string($model) ? new $model : $model;
     }
 
     /**

@@ -19,14 +19,7 @@ composer require "ryanwinchester/laravel-paginates:^0.3"
 
 Add it to your controller (or base controller, as shown):
 ```php
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+// ...
 use RyanWinchester\Paginates\PaginatesModels;
 
 class Controller extends BaseController
@@ -37,13 +30,6 @@ class Controller extends BaseController
 
 Then use it in your controller methods like so:
 ```php
-<?php
-
-namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Controller;
-use App\Product;
-
 class ProductsController extends Controller
 {
     public function index()
