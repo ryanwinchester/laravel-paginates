@@ -23,7 +23,7 @@ trait PaginatesModels
      *
      * @var string
      */
-    protected $defaultOrderDir = 'asc';
+    protected $defaultOrderDir = 'desc';
 
     /**
      * Get a paginator using filters from the request.
