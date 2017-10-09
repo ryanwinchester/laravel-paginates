@@ -59,7 +59,7 @@ trait PaginatesModels
             'filter' => $this->getFilter($params),
             'perPage' => $this->getPerPage($params),
             'columns' => $this->getColumns($params),
-            'includes' => $this->getIncludes($params),
+            'include' => $this->getIncludes($params),
             'orderBy' => $this->getOrderBy($params),
         ];
     }
