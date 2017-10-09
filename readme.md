@@ -60,7 +60,7 @@ Sometimes because of security or privacy, you may want to limit things like `inc
 ```php
 $products = $this->paginate(
     Product::class,
-    $request->except('includes')
+    $request->except('include')
 );
 ```
 
@@ -69,7 +69,7 @@ Or, say you want to define them yourself:
 ```php
 $products = $this->paginate(
     Product::with(['variations']),
-    $request->except('includes')
+    $request->except('include')
 );
 ```
 
