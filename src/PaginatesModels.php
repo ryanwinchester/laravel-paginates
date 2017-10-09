@@ -40,7 +40,7 @@ trait PaginatesModels
 
         $params = $this->parseParams($params);
 
-        return $this->itemsInstance($model, $params['includes'])
+        return $this->itemsInstance($model, $params['include'])
             ->where($params['filter'])
             ->orderBy($params['orderBy']['col'], $params['orderBy']['dir'])
             ->paginate($params['perPage'], $params['columns'])
