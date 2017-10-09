@@ -9,10 +9,8 @@ Between this trait, and Eloquent Models' `$casts` and `$hidden` properties, star
 
 ## Install
 
-Composer:
-
 ```
-composer require "ryanwinchester/laravel-paginates:^0.3"
+composer require ryanwinchester/laravel-paginates
 ```
 
 ## Usage
