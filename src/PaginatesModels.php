@@ -1,6 +1,6 @@
 <?php
 
-namespace SevenShores\Paginates;
+namespace RyanWinchester\Paginates;
 
 trait PaginatesModels
 {

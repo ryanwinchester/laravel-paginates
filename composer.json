@@ -1,5 +1,5 @@
 {
-    "name": "sevenshores/paginates",
+    "name": "ryanwinchester/laravel-paginates",
     "description": "Laravel controller trait for paginating models",
     "type": "library",
     "license": "Apache-2.0",
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SevenShores\\Paginates\\": "src/"
+            "RyanWinchester\\Paginates\\": "src/"
         }
     }
 }
