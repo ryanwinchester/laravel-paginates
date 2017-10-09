@@ -3,18 +3,20 @@
     "description": "Laravel controller trait for paginating models",
     "type": "library",
     "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Ryan Winchester",
-            "email": "fungku@gmail.com"
-        }
-    ],
+    "authors": [{
+        "name": "Ryan Winchester",
+        "email": "code@ryanwinchester.ca"
+    }],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "illuminate/http": "5.1.*|5.2.*|5.3.*"
+        "php": ">=7.0"
     },
-    "require-dev": {},
+    "require-dev": {
+        "illuminate/database": "5.*",
+        "illuminate/http": "5.*",
+        "illuminate/pagination": "5.*"
+    },
     "autoload": {
         "psr-4": {
             "SevenShores\\Pagination\\": "src/"

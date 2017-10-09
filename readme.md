@@ -55,6 +55,24 @@ class ProductsController extends Controller
 }
 ```
 
+Sometimes because of security or privacy, you may want to limit things like `includes`
+
+```php
+$products = $this->paginate(
+    Product::class,
+    $request->except('includes')
+);
+```
+
+Or, say you want to define them yourself:
+
+```php
+$products = $this->paginate(
+    Product::with(['variations']),
+    $request->except('includes')
+);
+```
+
 Then you can go to your route and add some of these optional parameters to page and filter:
 ![url](http://s.ryanwinchester.ca/22413y1l2z3a/Screenshot%202016-10-03%2020.35.46.png)
 

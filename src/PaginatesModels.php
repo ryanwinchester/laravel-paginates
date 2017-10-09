@@ -1,8 +1,6 @@
 <?php
 
-namespace Sevenshores\Pagination;
-
-use Illuminate\Http\Request;
+namespace SevenShores\Paginates;
 
 trait PaginatesModels
 {
@@ -31,23 +29,72 @@ trait PaginatesModels
      * Get a paginator using filters from the request.
      *
      * @param  \Illuminate\Database\Eloquent\Model|string  $model
-     * @param  \Illuminate\Http\Request|null  $request
-     * @return \Illuminate\Pagination\Paginator
+     * @param  array $params
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    protected function paginate($model, Request $request = null)
+    protected function paginate($model, $params = null)
     {
-        $request = $request ?: app('request');
+        if (is_null($params)) {
+            $params = app('request')->all();
+        }
 
-        $perPage = $this->getPerPage($request);
-        $columns = $this->getColumns($request);
-        $includes = $this->getIncludes($request);
-        $orderBy = $this->getOrderBy($request);
+        $params = $this->parseParams($params);
 
-        $items = ! empty($includes) ? $model::with(...$includes) : new $model;
+        return $this->itemsInstance($model, $params['includes'])
+            ->where($params['filter'])
+            ->orderBy($params['orderBy']['col'], $params['orderBy']['dir'])
+            ->paginate($params['perPage'], $params['columns'])
+            ->appends($this->getAppends($params));
+    }
 
-        return $items->orderBy($orderBy['col'], $orderBy['dir'])
-            ->paginate($perPage, $columns)
-            ->appends($this->getAppends($request));
+    /**
+     * Parse the incoming params.
+     *
+     * @param  array $params
+     * @return array
+     */
+    private function parseParams($params)
+    {
+        return [
+            'filter' => $this->getFilter($params),
+            'perPage' => $this->getPerPage($params),
+            'columns' => $this->getColumns($params),
+            'includes' => $this->getIncludes($params),
+            'orderBy' => $this->getOrderBy($params),
+        ];
+    }
+
+    /**
+     * Get the items instance.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model|string  $model
+     * @param  array $includes
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    private function itemsInstance($model, $includes)
+    {
+        if (! empty($includes)) {
+            return $model::with(...$includes);
+        }
+
+        if (is_string($model)) {
+            return new $model;
+        }
+
+        return $model;
+    }
+
+    /**
+     * Get the filter closure from the opts array.
+     *
+     * @param  array $params
+     * @return \Closure
+     */
+    private function getFilter($params)
+    {
+        return $params['filter'] ?? function() {
+                //
+            };
     }
 
     /**
@@ -56,42 +103,48 @@ trait PaginatesModels
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    private function getPerPage(Request $request)
+    private function getPerPage($params)
     {
-        return (int) $request->input('perPage', $this->defaultPerPage);
+        return (int) ($params['perPage'] ?? $this->defaultPerPage);
     }
 
     /**
      * Limit the columns per model.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  array $params
      * @return array
      */
-    private function getColumns(Request $request)
+    private function getColumns($params)
     {
-        return explode(',', $request->input('columns', '*'));
+        return explode(',', $params['columns'] ?? '*');
     }
 
     /**
      * Include specific model relationships.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  array $params
      * @return array|null
      */
-    private function getIncludes(Request $request)
+    private function getIncludes($params)
     {
-        return $request->has('include') ? explode(',', $request->input('include')) : null;
+        if (empty($params['include'])) {
+            return null;
+        }
+
+        return explode(',', $params['include']);
     }
 
     /**
      * Order the items by a certain column and direction.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  array $params
      * @return array
      */
-    private function getOrderBy(Request $request)
+    private function getOrderBy($params)
     {
-        $orderBy = explode('|', $request->input('orderBy', $this->defaultOrderCol.'|'.$this->defaultOrderDir));
+        $orderStr = $params['orderBy'] ?? $this->defaultOrderCol.'|'.$this->defaultOrderDir;
+
+        $orderBy = explode('|', $orderStr);
 
         if (count($orderBy) === 1) {
             array_push($orderBy, $this->defaultOrderDir);
@@ -106,16 +159,16 @@ trait PaginatesModels
     /**
      * Get the parameters to append to the pagination object's query string.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  array $params
      * @return array
      */
-    private function getAppends(Request $request)
+    private function getAppends($params)
     {
-        return [
-            'perPage' => $request->input('perPage'),
-            'columns' => $request->input('columns'),
-            'include' => $request->input('include'),
-            'orderBy' => $request->input('orderBy'),
-        ];
+        return array_only($params, [
+            'perPage',
+            'columns',
+            'include',
+            'orderBy',
+        ]);
     }
 }
