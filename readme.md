@@ -55,7 +55,7 @@ Or, say you want to define some included relationships yourself:
 
 ```php
 $products = $this->paginate(
-    Product::with(['variations']),
+    Product::with('variations'),
     $request->except('include')
 );
 ```
