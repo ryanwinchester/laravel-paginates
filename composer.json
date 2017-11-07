@@ -13,13 +13,12 @@
         "php": ">=7.0"
     },
     "require-dev": {
-        "illuminate/database": "5.*",
-        "illuminate/http": "5.*",
-        "illuminate/pagination": "5.*"
+        "laravel/framework": "5.*"
     },
     "autoload": {
         "psr-4": {
             "RyanWinchester\\Paginates\\": "src/"
-        }
+        },
+        "files": ["src/helpers.php"]
     }
 }
