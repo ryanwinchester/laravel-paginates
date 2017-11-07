@@ -39,13 +39,13 @@ class ProductsController extends Controller
 }
 ```
 
-Sometimes because of security or privacy, you may want to limit `include` relationships.
+Sometimes because of security or privacy, you may want to limit `include` relationships and/or `columns`.
 If that is the case, then be sure to include the parameters you want, making sure to exclude any user-supplied include parameters.
 
 ```php
 $products = $this->paginate(
     Product::class,
-    $request->except('include')
+    $request->except(['include', 'columns'])
 );
 ```
 
@@ -54,7 +54,16 @@ Or, say you want to define some included relationships yourself:
 ```php
 $products = $this->paginate(
     Product::with('variations'),
-    $request->except('include')
+    $request->except(['include', 'columns'])
+);
+```
+
+Or, even limit to specific columns:
+
+```php
+$products = $this->paginate(
+    Product::select(['id', 'price', 'in_stock']),
+    $request->except('columns')
 );
 ```
 
